@@ -2,19 +2,21 @@ package contacts;
 
 import utils.Input;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 public class Contacts {
-    private final Map<String, Integer> contact = new HashMap<>();
+    private static final Map<String, Long> contact = new HashMap<>();
     Input input = new Input();
-    public void setContact (String item, int amount) {
+
+    public void setContact (String item, long amount) {
         contact.put(item, amount);
     }
-    public Map<String, Integer> getContact() {
+    public Map<String, Long> getContact() {
         sortContacts();
         return contact;
     }
-    public Map<String, Integer> getIndividualContact(String name) {
+    public Map<String, Long> getIndividualContact(String name) {
             if (contact.containsKey(name)) {
                 return contact;
             } else {
@@ -23,7 +25,7 @@ public class Contacts {
         return null;
     }
     public void sortContacts() {
-        SortMapByKey.sort(contact);
+        CollectionsHelper.HashMapSorter(contact);
     }
     public void deleteContact() {
         deleteContact("Please enter a name");
@@ -45,5 +47,10 @@ public class Contacts {
         String [] parts = contactString.split(":");
         contact.setContact(parts[0].trim(), Integer.parseInt(parts[1].trim()));
         return contact;
+    }
+    public static ArrayList<String> convertContactsToArrayList () {
+        ArrayList<String> contactList = new ArrayList<>();
+        contactList = CollectionsHelper.makeArrayListFromHashMap(contact);
+        return contactList;
     }
 }

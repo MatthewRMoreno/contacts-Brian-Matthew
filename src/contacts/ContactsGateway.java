@@ -1,20 +1,13 @@
 package contacts;
 
-import com.sun.jdi.Value;
-
-import java.awt.*;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.security.Key;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class ContactsGateway {
-
+    //Writes contact to file
     public static void writeToFile(Contacts contactsList) {
         // 1. make a path object
         Path filePath = getFilePath();
@@ -23,37 +16,32 @@ public class ContactsGateway {
             return;
         }
 
-
         // 3. use Files.write to send the data to the file
-        writeItemStringsToFilePath(filePath, (Map<String, Integer>) itemStrings);
+        writeItemStringsToFilePath(filePath, contactsList);
     }
 
-
-    private static void writeItemStringsToFilePath(Path filePath, Map<String, Integer> itemStrings) {
+    //Helper function to write a Contacts object to the file
+    private static void writeItemStringsToFilePath(Path filePath, Contacts contactStrings) {
+        String contacts = contactStrings.getContact().toString();
         try {
-            Files.write(filePath, Contacts.);
+            Files.write(filePath, Contacts.convertContactsToArrayList());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
-
+    //Creates a contact object, fills the contact HashMap from file text, returns the contact object
     public static Contacts readFromFile() {
         Contacts list = new Contacts();
-
-        // 1. make a path object
         Path filePath = getFilePath();
         if(filePath == null) {
             System.out.println("Filepath could not be created. Cannot load.");
             return list;
         }
+        List<String> contactStrings = readItemStringsFromFilePath(filePath);
 
-        // 2. read item strings from file
-        List<String> itemStrings = readItemStringsFromFilePath(filePath);
-
-        // 3. make items from the items strings and put them in the groceryList
-        for(String itemString : itemStrings) {
-            Contacts item = Contacts.createFromString(itemString);
-            list.setContact("", 1);
+        // 3. For each contactString in contactStrings add new contact to list
+        for(String contactString : contactStrings) {
+            list = Contacts.createFromString(contactString);
         }
         return list;
     }
@@ -65,7 +53,7 @@ public class ContactsGateway {
             throw new RuntimeException(e);
         }
     }
-
+    //Looks for, creates if not present, and returns the data file
     private static Path getFilePath() {
         try {
             Path folder = Paths.get("contacts_list");
@@ -87,5 +75,4 @@ public class ContactsGateway {
         }
         return null;
     }
-
 }

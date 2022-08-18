@@ -67,6 +67,45 @@ public class Input {
         return number;
     }
 
+    public long getLong(int min,int max,String prompt){
+        while (true) {
+            System.out.println(prompt);
+            long number;
+            try {
+                String input = scanner.nextLine();
+                number = Long.getLong(input);
+            } catch (RuntimeException re) {
+                System.err.println("Enter an integer.");
+                return getLong(min,max,prompt);
+            }
+            if (number >= min && number <= max)
+                return number;
+        }
+    }
+    public long getLong(int min,int max){
+
+        return getLong(min,max,"Please enter an integer between "+min+" and "+max);
+
+    }
+
+    public long getLong() {
+        return getInt("Please enter an integer");
+    }
+
+    public long getLong(String prompt){
+        System.out.println(prompt);
+        String input = scanner.nextLine();
+
+        long number;
+        try {
+            number = Long.parseLong(input);
+        } catch (NumberFormatException exception) {
+            System.err.println("Enter an integer.");
+            return getLong(prompt);
+        }
+        return number;
+    }
+
     public double getDouble(double min,double max) {
         return getDouble(min,max,"Enter a number between "+min+" and "+max);
     }
