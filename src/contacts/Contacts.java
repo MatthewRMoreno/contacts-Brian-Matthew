@@ -10,7 +10,8 @@ public class Contacts {
     public void setContact (String item, int amount) {
         contact.put(item, amount);
     }
-    public Map<String, Integer> addContact () {
+    public Map<String, Integer> getContact () {
+        sortContacts();
         return contact;
     }
     public void sortContacts() {
