@@ -28,17 +28,19 @@ public class Contacts {
         CollectionsHelper.HashMapSorter(contact);
     }
     public void deleteContact() {
-        deleteContact("Please enter a name");
+        deleteContact("Who would you like to remove?");
     }
     public void deleteContact(String prompt){
-        String name = input.getString(prompt);
+        String index = input.getString(prompt);
+        Long phoneNumber = contact.get(index);
+        System.out.println(phoneNumber);
         while (true) {
-            try {
-                contact.remove(prompt);
+            if (contact.containsKey(index)) {
+                contact.remove(index, phoneNumber);
                 return;
-            } catch (RuntimeException re) {
-                System.err.println("Contact " + name + " does not exist.");
-                name = input.getString(prompt);
+            } else {
+                System.err.println("Contact " + index + " does not exist.");
+                index = input.getString(prompt);
             }
         }
     }

@@ -15,7 +15,7 @@ public class CollectionsHelper {
     }
 
     public static Map<String, Long> HashMapSorter(Map<String, Long> unsortedMap) {
-        Map<String, Long> sortedMap = unsortedMap.entrySet().stream()
+        return unsortedMap.entrySet().stream()
                 .sorted(Comparator.comparing(e -> e.getKey().length()))
                 .collect(Collectors.toMap(
                         Map.Entry::getKey,
@@ -23,6 +23,5 @@ public class CollectionsHelper {
                         (a, b) -> { throw new AssertionError(); },
                         LinkedHashMap::new
                 ));
-        return sortedMap;
     }
 }
