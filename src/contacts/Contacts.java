@@ -29,4 +29,10 @@ public class Contacts {
             }
         }
     }
+    public static Contacts createFromString (String contactString) {
+        Contacts contact = new Contacts();
+        String [] parts = contactString.split(":");
+        contact.setContact(parts[0].trim(), Integer.parseInt(parts[1].trim()));
+        return contact;
+    }
 }
