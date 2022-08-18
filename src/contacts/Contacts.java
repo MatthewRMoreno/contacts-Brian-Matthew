@@ -13,7 +13,9 @@ public class Contacts {
     public Map<String, Integer> getItemAmount () {
         return contact;
     }
-
+    public void sortContacts() {
+        SortMapByKey.sort(contact);
+    }
     public void deleteContact() {
         deleteContact("Please enter a name");
     }
