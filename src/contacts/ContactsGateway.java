@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class GroceryListGateway {
+public class ContactsGateway {
 
     public static void writeToFile(Contacts contactsList) {
         // 1. make a path object

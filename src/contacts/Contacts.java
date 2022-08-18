@@ -10,9 +10,17 @@ public class Contacts {
     public void setContact (String item, int amount) {
         contact.put(item, amount);
     }
-    public Map<String, Integer> getContact () {
+    public Map<String, Integer> getContact() {
         sortContacts();
         return contact;
+    }
+    public Map<String, Integer> getIndividualContact(String name) {
+            if (contact.containsKey(name)) {
+                return contact;
+            } else {
+                System.err.println("Contact " + name + " does not exist.");
+            }
+        return null;
     }
     public void sortContacts() {
         SortMapByKey.sort(contact);
