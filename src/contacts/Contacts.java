@@ -19,6 +19,14 @@ public class Contacts {
     }
     public void deleteContact(String prompt){
         String name = input.getString(prompt);
-        contact.remove(prompt);
+        while (true) {
+            try {
+                contact.remove(prompt);
+                return;
+            } catch (RuntimeException re) {
+                System.err.println("Contact " + name + " does not exist.");
+                name = input.getString(prompt);
+            }
+        }
     }
 }
