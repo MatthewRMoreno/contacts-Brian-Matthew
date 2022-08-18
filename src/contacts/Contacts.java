@@ -5,6 +5,8 @@ import utils.Input;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
+
 public class Contacts {
     private static final Map<String, Long> contact = new HashMap<>();
     Input input = new Input();
@@ -16,14 +18,17 @@ public class Contacts {
         sortContacts();
         return contact;
     }
-    public Map<String, Long> getIndividualContact(String name) {
+    public Map.Entry<String, Long> getIndividualContact(String name) {
+        for (Map.Entry<String, Long> key : contact.entrySet()) {
             if (contact.containsKey(name)) {
-                return contact;
+                return key;
             } else {
                 System.err.println("Contact " + name + " does not exist.");
             }
+        }
         return null;
     }
+
     public void sortContacts() {
         CollectionsHelper.HashMapSorter(contact);
     }

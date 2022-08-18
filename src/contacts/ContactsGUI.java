@@ -29,7 +29,7 @@ public class ContactsGUI {
                     name = input.getString("Who are you looking for?");
                     if (contact.getIndividualContact(name) == null) {
                         name = input.getString("Who are you looking for?");
-                    } else contact.getIndividualContact(name);
+                    } else System.out.println(contact.getIndividualContact(name));
                 }
                 case 4 -> contact.deleteContact();
                 case 5 -> {
