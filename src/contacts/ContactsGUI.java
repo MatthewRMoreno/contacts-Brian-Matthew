@@ -2,6 +2,10 @@ package contacts;
 
 import utils.Input;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 public class ContactsGUI {
     Contacts contact = new Contacts();
     Input input = new Input();
@@ -10,6 +14,22 @@ public class ContactsGUI {
         contact = ContactsGateway.readFromFile();
         String name = "";
         long phoneNumber = 0;
+        System.out.println("""
+                    
+                               ___                                       ___                         ___        \s
+                              (   )                                     (   )                       (   )       \s
+                       .-..    | | .-.     .--.    ___ .-.     .--.      | |.-.     .--.     .--.    | |   ___  \s
+                      /    \\   | |/   \\   /    \\  (   )   \\   /    \\     | /   \\   /    \\   /    \\   | |  (   ) \s
+                     ' .-,  ;  |  .-. .  |  .-. ;  |  .-. .  |  .-. ;    |  .-. | |  .-. ; |  .-. ;  | |  ' /   \s
+                     | |  . |  | |  | |  | |  | |  | |  | |  |  | | |    | |  | | | |  | | | |  | |  | |,' /    \s
+                     | |  | |  | |  | |  | |  | |  | |  | |  |  |/  |    | |  | | | |  | | | |  | |  | .  '.    \s
+                     | |  | |  | |  | |  | |  | |  | |  | |  |  ' _.'    | |  | | | |  | | | |  | |  | | `. \\   \s
+                     | |  ' |  | |  | |  | '  | |  | |  | |  |  .'.-.    | '  | | | '  | | | '  | |  | |   \\ \\  \s
+                     | `-'  '  | |  | |  '  `-' /  | |  | |  '  `-' /    ' `-' ;  '  `-' / '  `-' /  | |    \\ . \s
+                     | \\__.'  (___)(___)  `.__.'  (___)(___)  `.__.'      `.__.    `.__.'   `.__.'  (___ ) (___)\s
+                     | |                                                                                        \s
+                    (___)                                                                                       \s
+                    """);
         while (exit) {
             int choice = input.getInt("""
                     1. View contacts.
@@ -19,17 +39,52 @@ public class ContactsGUI {
                     5. Exit.
                     Enter an option (1, 2, 3, 4 or 5):""");
             switch (choice) {
-                case 1 -> System.out.println(contact.getContact());
+                case 1 -> contactFormatter();
                 case 2 -> {
+                    System.out.println("""
+                                           _.===========================._
+                                        .'`  .-  - __- - - -- --__--- -.  `'.
+                                    __ / ,'`     _|--|_________|--|_     `'. \\
+                                  /'--| ;    _.'\\ |  '         '  | /'._    ; |
+                                 //   | |_.-' .-'.'    -  -- -    '.'-. '-._| |
+                                (\\)   \\"` _.-` /                     \\ `-._ `"/
+                                (\\)    `-`    /      .---------.      \\    `-`
+                                (\\)           |      ||1||2||3||      |
+                               (\\)            |      ||4||5||6||      |
+                              (\\)             |      ||7||8||9||      |
+                             (\\)           ___|      ||*||0||#||      |
+                             (\\)          /.--|      '---------'      |
+                              (\\)        (\\)  |\\_  _  __   _   __  __/|
+                             (\\)        (\\)   |                       |
+                            (\\)_._._.__(\\)    |                       |
+                             (\\\\\\\\jgs\\\\\\)      '.___________________.'
+                              '-'-'-'--'""");
                     name = input.getString("What is the contact's name?");
+                    for (String contactName : contact.getContact().keySet()) {
+                        if (contactName.toLowerCase().contains(name.toLowerCase())) {
+                            boolean value = input.yesNo("There is a contact with that name already, would you like to overwrite it?");
+                            if (!value) entryPoint();
+                        }
+                    }
                     phoneNumber = input.getLong("What is the contact's phone number?");
+                    while (Long.toString(phoneNumber).length() != 10) phoneNumber = input.getLong("Please enter a 10 digit phone number without any special characters.");
                     contact.setContact(name, phoneNumber);
                 }
                 case 3 -> {
-                    name = input.getString("Who are you looking for?");
-                    if (contact.getIndividualContact(name) == null) {
+                    do  {
                         name = input.getString("Who are you looking for?");
-                    } else System.out.println(contact.getIndividualContact(name));
+                    } while (contact.getIndividualContact(name) == null);
+                    System.out.println("""                
+                  _____            _             _  \s
+                 / ____|          | |           | | \s
+                | |     ___  _ __ | |_ __ _  ___| |_\s
+                | |    / _ \\| '_ \\| __/ _` |/ __| __|
+                | |___| (_) | | | | || (_| | (__| |_\s
+                 \\_____\\___/|_| |_|\\__\\__,_|\\___|\\__|
+                ################################################################
+                """);
+                    System.out.println(contact.getIndividualContact(name));
+                    System.out.println("################################################################");
                 }
                 case 4 -> contact.deleteContact();
                 case 5 -> {
@@ -38,6 +93,25 @@ public class ContactsGUI {
                 }
             }
         }
+    }
+    public void contactFormatter() {
+        Map<String, Long> unformattedContacts = new HashMap<>();
+        unformattedContacts = contact.getContact();
+        System.out.println("""                
+                  _   _                 _                  \s
+                 | \\ | |               | |                 \s
+                 |  \\| |_   _ _ __ ___ | |__   ___ _ __ ___\s
+                 | . ` | | | | '_ ` _ \\| '_ \\ / _ \\ '__/ __|
+                 | |\\  | |_| | | | | | | |_) |  __/ |  \\__ \\
+                 |_| \\_|\\__,_|_| |_| |_|_.__/ \\___|_|  |___/
+                ################################################################
+                """);
+        for (Map.Entry<String, Long> contact : unformattedContacts.entrySet()) {
+            String phoneNumber = Long.toString(contact.getValue());
+            String formattedPhoneNumber =  "(" + phoneNumber.substring( 0,3 ) + ") " + phoneNumber.substring( 3,6 ) + "-" + phoneNumber.substring( 6,10 );
+            System.out.format("Contact: %-30s | Number: %s\n", contact.getKey(), formattedPhoneNumber);
+        }
+        System.out.println("################################################################");
     }
 }
 

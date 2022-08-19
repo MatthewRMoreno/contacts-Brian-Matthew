@@ -75,7 +75,7 @@ public class Input {
                 String input = scanner.nextLine();
                 number = Long.getLong(input);
             } catch (RuntimeException re) {
-                System.err.println("Enter an integer.");
+                System.err.println("Enter an number.");
                 return getLong(min,max,prompt);
             }
             if (number >= min && number <= max)
@@ -84,12 +84,12 @@ public class Input {
     }
     public long getLong(int min,int max){
 
-        return getLong(min,max,"Please enter an integer between "+min+" and "+max);
+        return getLong(min,max,"Please enter an number between "+min+" and "+max);
 
     }
 
     public long getLong() {
-        return getInt("Please enter an integer");
+        return getInt("Please enter an number");
     }
 
     public long getLong(String prompt){
@@ -100,7 +100,7 @@ public class Input {
         try {
             number = Long.parseLong(input);
         } catch (NumberFormatException exception) {
-            System.err.println("Enter an integer.");
+            System.err.println("Enter an number.");
             return getLong(prompt);
         }
         return number;
