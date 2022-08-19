@@ -7,6 +7,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ContactsGUI {
+    public static final String YELLOW_BOLD_BRIGHT = "\033[1;93m";
+    public static final String RESET = "\033[0m";
+
     Contacts contact = new Contacts();
     Input input = new Input();
     public void entryPoint() {
@@ -121,7 +124,7 @@ public class ContactsGUI {
     }
 
     public void exitApp() {
-            System.out.println("""
+            System.out.println(YELLOW_BOLD_BRIGHT + """
                                    ..---..
                                  .'  _    `.
                              __..'  (o)    :
@@ -134,16 +137,16 @@ public class ContactsGUI {
                                \\                           '
                                 +                         J
                                  `._                   _.'
-                                    `~--....___...---~'
-                                    
-                                       ____    U  ___ u   U  ___ u  ____    ____   __   __U _____ u\s
-                                    U /"___|u   \\/"_ \\/    \\/"_ \\/ |  _"\\U | __")u \\ \\ / /\\| ___"|/\s
-                                    \\| |  _ /   | | | |    | | | |/| | | |\\|  _ \\/  \\ V /  |  _|"  \s
-                                     | |_| |.-,_| |_| |.-,_| |_| |U| |_| |\\| |_) | U_|"|_u | |___  \s
-                                      \\____| \\_)-\\___/  \\_)-\\___/  |____/ u|____/    |_|   |_____| \s
-                                      _)(|_       \\\\         \\\\     |||_  _|| \\\\_.-,//|(_  <<   >> \s
-                                     (__)__)     (__)       (__)   (__)_)(__) (__)\\_) (__)(__) (__)\s                                                                                                 
-                                    """);
+                                    `~--....___...---~'                                                                                                                                  
+                                    """ + RESET);
+        System.out.println("""
+                   ____    U  ___ u   U  ___ u  ____    ____   __   __U _____ u\s
+                U /"___|u   \\/"_ \\/    \\/"_ \\/ |  _"\\U | __")u \\ \\ / /\\| ___"|/\s
+                \\| |  _ /   | | | |    | | | |/| | | |\\|  _ \\/  \\ V /  |  _|"  \s
+                 | |_| |.-,_| |_| |.-,_| |_| |U| |_| |\\| |_) | U_|"|_u | |___  \s
+                  \\____| \\_)-\\___/  \\_)-\\___/  |____/ u|____/    |_|   |_____| \s
+                  _)(|_       \\\\         \\\\     |||_  _|| \\\\_.-,//|(_  <<   >> \s
+                 (__)__)     (__)       (__)   (__)_)(__) (__)\\_) (__)(__) (__)\s   """);
     }
 }
 
