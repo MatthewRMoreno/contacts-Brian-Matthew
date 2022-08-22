@@ -6,3 +6,4 @@ public class ContactsApp {
         contact.entryPoint();
     }
 }
+//testing comment
